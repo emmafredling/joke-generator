@@ -14,3 +14,16 @@ const fetchJoke = async () => {
 };
 
 jokeButton.addEventListener("click", fetchJoke);
+
+const categories = [
+  { name: "Any", url: "https://v2.jokeapi.dev/joke/Any?safe-mode" },
+  { name: "Misc", url: "https://v2.jokeapi.dev/joke/Misc?safe-mode" },
+  {
+    name: "Programming",
+    url: "https://v2.jokeapi.dev/joke/Programming?safe-mode",
+  },
+  { name: "Dark", url: "https://v2.jokeapi.dev/joke/Dark?safe-mode" },
+  { name: "pun", url: "https://v2.jokeapi.dev/joke/Pun?safe-mode" },
+  { name: "Spooky", url: "https://v2.jokeapi.dev/joke/Spooky?safe-mode" },
+  { name: "Christmas", url: "https://v2.jokeapi.dev/joke/Christmas?safe-mode" },
+];
