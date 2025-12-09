@@ -15,54 +15,10 @@ const categories = [
   { name: "Christmas", url: "https://v2.jokeapi.dev/joke/Christmas?safe-mode" },
 ];
 
-const backgroundQueries = {
-  Any: "abstract background",
-  Programming: "programming code background",
-  Christmas: "Christmas background",
-  Pun: "funny colorful background",
-  Spooky: "spooky halloween background",
-  Dark: "dark abstract background",
-  Misc: "minimal abstract background",
-};
-
-const fetchBackground = async (selectedCategory) => {
-  console.log("fetchBackground received:", selectedCategory);
-
-  const categoryKey = selectedCategory || "Any";
-  const query = backgroundQueries[categoryKey] || backgroundQueries.Any;
-
-  const res = await fetch(
-    `https://api.pexels.com/v1/search?query=${encodeURIComponent(
-      query
-    )}&per_page=20`,
-    {
-      headers: {
-        Authorization: PEXELS_API_KEY,
-      },
-    }
-  );
-
-  const data = await res.json();
-  console.log("Pexels data:", data);
-
-  if (!data.photos || data.photos.length === 0) {
-    return null;
-  }
-
-  const randomIndex = Math.floor(Math.random() * data.photos.length);
-  const photo = data.photos[randomIndex];
-  const url = photo.src.large;
-
-  return url;
-};
-
 const fetchJoke = async () => {
   try {
     const selected = categoryAny.value;
     console.log("Selected:", selected);
-
-    const bgUrl = await fetchBackground(selected);
-    console.log("Background URL:", bgUrl);
 
     const category = categories.find((cat) => cat.name === selected);
     const anyCategory = categories.find((cat) => cat.name === "Any");
@@ -75,10 +31,6 @@ const fetchJoke = async () => {
     const data = await res.json();
 
     jokeCard.textContent = data.joke || `${data.setup} - ${data.delivery}`;
-
-    if (bgUrl) {
-      jokeCard.style.backgroundImage = `url(${bgUrl})`;
-    }
 
     jokeCard.style.display = "block";
   } catch (error) {
