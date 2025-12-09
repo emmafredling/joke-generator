@@ -1,9 +1,146 @@
+/* Root and resets */
 * {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
 }
 
-.jokeCard {
+:root {
+  /* font settings */
+  --font-family: "Fredoka", sans-serif;
+  font-size: 16px;
+
+  /* color */
+  --clr-primary: #845ec2;
+  --clr-secondary: #b39cd0;
+  --clr-light: #fbeaff;
+  --clr-mint: #00c9a7;
+}
+
+/* Layout */
+body {
+  font-family: var(--font-family);
+  text-align: center;
+  background: linear-gradient(
+    135deg,
+    var(--clr-primary) 0%,
+    var(--clr-secondary) 30%,
+    var(--clr-light) 60%,
+    var(--clr-mint) 100%
+  );
+  min-height: 100vh;
+}
+
+/* Typography */
+h1 {
+  margin: 2rem 0;
+  font-size: 3rem;
+}
+
+.intro-text {
+  margin: 0 2.5rem;
+  margin-bottom: 2rem;
+  font-size: 1.2rem;
+}
+
+/* Components */
+.joke-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 2rem;
+}
+
+.joke-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+label {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+select {
+  font-family: var(--font-family);
+  font-size: 1.1rem;
+  border: none;
+  text-align: center;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  margin-bottom: 1rem;
+}
+
+.joke-btn {
+  font-family: var(--font-family);
+  font-size: 1.2rem;
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.75rem;
+  width: fit-content;
+  margin: 0 auto;
+
+  background: var(--clr-primary);
+  color: white;
+  cursor: pointer;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.joke-card {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(10px);
+  border-radius: 1rem;
+  margin-top: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  width: 20rem;
   display: none;
 }
+
+.joke-card.is-visible {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 2rem;
+}
+
+.joke-text {
+  font-size: 1.5rem;
+}
+
+.joke-setup {
+  font-size: 1.2rem;
+  margin-bottom: 0.75rem;
+}
+
+.joke-delivery {
+  font-weight: 500;
+  font-size: 1.4rem;
+}
+
+/* Animation */
+@keyframes scaleFadeSlideInUp {
+  0% {
+    transform: scale(0.5) translateY(300%);
+    opacity: 0;
+  }
+  30% {
+    transform: scale(0.7) translateY(0);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+  }
+}
+
+.scaleFadeSlideInUp {
+  animation: scaleFadeSlideInUp 1s ease-in-out 1;
+}
+
+/* Media Queries */

@@ -15,8 +15,12 @@
   <body>
     <h1>Joke Generator</h1>
 
+    <p class="intro-text">
+      Pick a category — or simply press the button for a random joke!
+    </p>
+
     <section class="joke-section">
-      <article>
+      <article class="joke-controls">
         <label for="category-select">Choose a category:</label>
 
         <select name="category" id="category-select">
@@ -25,13 +29,12 @@
           <option value="Christmas">Christmas</option>
           <option value="Pun">Pun</option>
           <option value="Spooky">Spooky</option>
-          <option value="Dark">Dark</option>
           <option value="Misc">Misc</option>
         </select>
-        <button class="jokeButton">Get Joke</button>
+        <button class="joke-btn">Get Joke</button>
       </article>
 
-      <article class="jokeCard"></article>
+      <article class="joke-card"></article>
     </section>
     <script src="main.js"></script>
   </body>

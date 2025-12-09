@@ -1,41 +1,59 @@
-const jokeButton = document.querySelector(".jokeButton");
-const jokeCard = document.querySelector(".jokeCard");
+const jokeButton = document.querySelector(".joke-btn");
+const jokeCard = document.querySelector(".joke-card");
 const categoryAny = document.querySelector("#category-select");
 
-const categories = [
-  { name: "Any", url: "https://v2.jokeapi.dev/joke/Any?safe-mode" },
-  { name: "Misc", url: "https://v2.jokeapi.dev/joke/Misc?safe-mode" },
-  {
-    name: "Programming",
-    url: "https://v2.jokeapi.dev/joke/Programming?safe-mode",
-  },
-  { name: "Dark", url: "https://v2.jokeapi.dev/joke/Dark?safe-mode" },
-  { name: "Pun", url: "https://v2.jokeapi.dev/joke/Pun?safe-mode" },
-  { name: "Spooky", url: "https://v2.jokeapi.dev/joke/Spooky?safe-mode" },
-  { name: "Christmas", url: "https://v2.jokeapi.dev/joke/Christmas?safe-mode" },
-];
+const categories = {
+  Any: "https://v2.jokeapi.dev/joke/Any?safe-mode",
+  Misc: "https://v2.jokeapi.dev/joke/Misc?safe-mode",
+  Programming: "https://v2.jokeapi.dev/joke/Programming?safe-mode",
+  Pun: "https://v2.jokeapi.dev/joke/Pun?safe-mode",
+  Spooky: "https://v2.jokeapi.dev/joke/Spooky?safe-mode",
+  Christmas: "https://v2.jokeapi.dev/joke/Christmas?safe-mode",
+};
 
 const fetchJoke = async () => {
+  jokeCard.classList.remove("scaleFadeSlideInUp");
+  jokeCard.innerHTML = "";
+
   try {
     const selected = categoryAny.value;
     console.log("Selected:", selected);
 
-    const category = categories.find((cat) => cat.name === selected);
-    const anyCategory = categories.find((cat) => cat.name === "Any");
-    console.log("Category object;", category);
-
-    const finalUrl = category ? category.url : anyCategory.url;
+    const finalUrl = categories[selected] || categories.Any;
     console.log("Final URL:", finalUrl);
 
     const res = await fetch(finalUrl);
     const data = await res.json();
 
-    jokeCard.textContent = data.joke || `${data.setup} - ${data.delivery}`;
+    if (data.type === "single") {
+      const p = document.createElement("p");
+      p.classList.add("joke-text");
+      p.textContent = data.joke;
+      jokeCard.appendChild(p);
+    } else {
+      const setup = document.createElement("p");
+      setup.classList.add("joke-setup");
+      setup.textContent = data.setup;
 
-    jokeCard.style.display = "block";
+      const delivery = document.createElement("p");
+      delivery.classList.add("joke-delivery");
+      delivery.textContent = data.delivery;
+
+      jokeCard.appendChild(setup);
+      jokeCard.appendChild(delivery);
+    }
+
+    jokeCard.classList.add("is-visible");
+    void jokeCard.offsetWidth;
+    jokeCard.classList.add("scaleFadeSlideInUp");
   } catch (error) {
     console.log(error);
-    jokeCard.textContent = "Something went wrong, please try again!";
+    const p = document.createElement("p");
+    p.classList.add("joke-text");
+    p.textContent = "Something went wrong, please try again!";
+    jokeCard.appendChild(p);
+
+    jokeCard.classList.add("is-visible");
   }
 };
 
