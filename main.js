@@ -2,6 +2,7 @@ const jokeButton = document.querySelector(".joke-btn");
 const jokeCard = document.querySelector(".joke-card");
 const categoryAny = document.querySelector("#category-select");
 
+// API Categories
 const categories = {
   Any: "https://v2.jokeapi.dev/joke/Any?safe-mode",
   Misc: "https://v2.jokeapi.dev/joke/Misc?safe-mode",
@@ -11,20 +12,20 @@ const categories = {
   Christmas: "https://v2.jokeapi.dev/joke/Christmas?safe-mode",
 };
 
+// Fetch joke and update UI
 const fetchJoke = async () => {
   jokeCard.classList.remove("scaleFadeSlideInUp");
-  jokeCard.innerHTML = "";
+  jokeCard.textContent = "";
 
   try {
     const selected = categoryAny.value;
-    console.log("Selected:", selected);
 
     const finalUrl = categories[selected] || categories.Any;
-    console.log("Final URL:", finalUrl);
 
     const res = await fetch(finalUrl);
     const data = await res.json();
 
+    // Render single or two-part joke
     if (data.type === "single") {
       const p = document.createElement("p");
       p.classList.add("joke-text");
@@ -43,7 +44,7 @@ const fetchJoke = async () => {
       jokeCard.appendChild(delivery);
     }
 
-    jokeCard.classList.add("is-visible");
+    jokeCard.classList.add("visible");
     void jokeCard.offsetWidth;
     jokeCard.classList.add("scaleFadeSlideInUp");
   } catch (error) {
@@ -53,7 +54,7 @@ const fetchJoke = async () => {
     p.textContent = "Something went wrong, please try again!";
     jokeCard.appendChild(p);
 
-    jokeCard.classList.add("is-visible");
+    jokeCard.classList.add("visible");
   }
 };
 

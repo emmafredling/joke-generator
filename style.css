@@ -34,13 +34,13 @@ body {
 /* Typography */
 h1 {
   margin: 2rem 0;
-  font-size: 3rem;
+  font-size: clamp(3rem, 6vw, 6rem);
 }
 
 .intro-text {
-  margin: 0 2.5rem;
+  font-size: clamp(1.2rem, 3vw, 2rem);
   margin-bottom: 2rem;
-  font-size: 1.2rem;
+  padding: 0 2rem;
 }
 
 /* Components */
@@ -48,34 +48,32 @@ h1 {
   display: flex;
   flex-direction: column;
   align-items: center;
-  text-align: center;
   gap: 2rem;
 }
 
 .joke-controls {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 1.5rem;
 }
 
 label {
-  font-size: 1.5rem;
+  font-size: clamp(1.5rem, 3vw, 2rem);
   font-weight: 500;
 }
 
 select {
   font-family: var(--font-family);
-  font-size: 1.1rem;
+  font-size: clamp(1.1rem, 3vw, 1.4rem);
   border: none;
   text-align: center;
   padding: 0.5rem;
   border-radius: 1rem;
-  margin-bottom: 1rem;
 }
 
 .joke-btn {
   font-family: var(--font-family);
-  font-size: 1.2rem;
+  font-size: clamp(1.2rem, 3vw, 1.7rem);
   padding: 0.75rem 1.5rem;
   border: none;
   border-radius: 0.75rem;
@@ -93,34 +91,40 @@ select {
 .joke-card {
   background: rgba(255, 255, 255, 0.25);
   backdrop-filter: blur(10px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   border-radius: 1rem;
   margin-top: 1.5rem;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
   width: 20rem;
-  display: none;
-}
+  min-height: 8.75rem;
 
-.joke-card.is-visible {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  text-align: center;
   padding: 2rem;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.joke-card.visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 .joke-text {
-  font-size: 1.5rem;
+  font-size: clamp(1.5rem, 3vw, 1.8rem);
 }
 
 .joke-setup {
-  font-size: 1.2rem;
+  font-size: clamp(1.2rem, 3vw, 1.8rem);
   margin-bottom: 0.75rem;
 }
 
 .joke-delivery {
+  font-size: clamp(1.4rem, 3vw, 1.7rem);
   font-weight: 500;
-  font-size: 1.4rem;
 }
 
 /* Animation */
@@ -144,3 +148,34 @@ select {
 }
 
 /* Media Queries */
+@media (min-width: 1024px) {
+  h1 {
+    margin-top: 6rem;
+  }
+
+  .intro-text {
+    margin-bottom: 4rem;
+  }
+
+  .joke-section {
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 8rem;
+  }
+
+  .joke-controls {
+    gap: 2.5rem;
+  }
+
+  .joke-btn:hover {
+    background-color: var(--clr-mint);
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.18);
+  }
+
+  .joke-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  }
+}
